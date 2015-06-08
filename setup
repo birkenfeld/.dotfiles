@@ -1,8 +1,17 @@
-#!/bin/sh
-for f in *; do
-	if [ $f == setup ]; then continue; fi
-	if [ ! -f ~/.$f ]; then
-		echo "linking $f"
-		ln -s `pwd`/$f ~/.$f
-	fi
-done
+#!/bin/env python
+import os
+from os import path as p
+
+for (r, ds, fs) in os.walk('.'):
+    ds[:] = set(ds) - {'.git'}
+    fs[:] = set(fs) - {'setup'}
+    for f in fs:
+        fr = p.join(r, f)[2:]
+        to = p.join(p.expanduser('~'), '.' + fr)
+        print '%s -> %s' % (fr, to),
+        if p.exists(to):
+            print 'ALREADY EXISTS'
+        else:
+            os.symlink(p.abspath(fr), to)
+            print 'linked'
+
