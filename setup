@@ -1,0 +1,8 @@
+#!/bin/sh
+for f in *; do
+	if [ $f == setup ]; then continue; fi
+	if [ ! -f ~/.$f ]; then
+		echo "linking $f"
+		ln -s `pwd`/$f ~/.$f
+	fi
+done

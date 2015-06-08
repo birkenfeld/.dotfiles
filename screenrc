@@ -1,0 +1,5 @@
+startup_message off
+defscrollback 10000
+hardstatus            alwayslastline "%H | %-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%{= kw} %<%= %{=} | Load: %l"
+sorendition           s 60
+

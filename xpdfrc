@@ -1,0 +1,9 @@
+bind pgup any prevPage
+bind pgdn any nextPage
+bind home any gotoPage(1)
+bind end any gotoLastPage
+
+bind g any reload
+
+initialZoom page
+urlCommand "firefox %s"

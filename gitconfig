@@ -1,0 +1,38 @@
+[user]
+	email = georg@python.org
+	name = Georg Brandl
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	remote = auto
+	ui = true
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	ds = diff --staged
+	rb = rebase -i origin/master
+	ca = commit --amend
+	pg = push gerrit
+	ann = blame
+	rev = checkout --
+	lg = log --graph
+[push]
+	default = simple
+[pull]
+	rebase = true
+[branch]
+	autosetuprebase = remote
+[log]
+	decorate = short
+[rebase]
+	autosquash = true
+	autostash = true
+[merge]
+	defaultToUpstream = true
+[core]
+	pager = less -S
+[init]
+	templatedir = /home/gbr/.git_template

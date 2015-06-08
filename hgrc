@@ -1,0 +1,106 @@
+[extensions]
+hgext.bookmarks  =
+hgext.color      =
+hgext.graphlog   =
+hgext.histedit   =
+hgext.mq         =
+hgext.pager      =
+hgext.parentrevspec =
+hgext.patchbomb  =
+hgext.progress   =
+hgext.purge      =
+hgext.rebase     =
+hgext.record     =
+hgext.transplant =
+#hgext.churn      =
+#hgext.eol        =
+#hgext.fetch      =
+#hgext.convert    =
+#hgext.zeroconf   = 
+
+#hgbb         = ~/devel/hgbb/hgbb.py
+hgchangelog  = ~/devel/hgchangelog/hgchangelog.py
+hgcodesmell  = ~/devel/hgcodesmell/hgcodesmell.py
+#hgpunchcard  = ~/devel/hgpunchcard/hgpunchcard.py
+
+#activity     = ~/devel/ext/hgactivity/activity
+hgview       = ~/devel/ext/hgview/hgext/hgview.py
+reposettings = ~/devel/ext/reposettings/reposettings.py
+shelve       = ~/devel/ext/hgshelve/hgshelve.py
+#evolve       = ~/devel/ext/mutable-history/hgext/evolve.py
+#attic        = ~/devel/ext/hgattic/attic.py
+#commits      = ~/devel/ext/commits.py
+#hgsubversion = ~/devel/ext/hgsubversion/hgsubversion
+#review       = ~/devel/ext/hg-review/review
+#schemes      = ~/devel/ext/schemes/schemes.py
+#shrink       = ~/devel/hg-crew/contrib/shrink-revlog.py
+#tasks        = ~/devel/ext/hgtasks/hgext/tasks.py
+
+[defaults]
+diff   = --show-function
+revert = --no-backup
+
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
+
+[alias]
+ann = annotate -ucn
+cdiff = diff --color=always
+slog = log -l5
+show = log -pr
+res = resolve -l
+, = glog -l10
+close-this = !$HG commit --close-branch -m "Closing branch `hg branch`."
+
+[pager]
+pager = LESS='FSRX' less
+attend = annotate, ann, log, diff, dl, glog, cat, grep, status, incoming, outgoing
+
+[bookmarks]
+track.current = true
+
+[hooks]
+#changegroup = hg diff --stat -r $HG_NODE:tip
+#changegroup = hg log -r $HG_NODE:tip --stat --template '{empty}'
+commit      = hg tip --template 'Committed revision {node|formatnode} ({rev}).\n'; hg tip --template '{node|formatnode}' | xclip -i
+
+[ui]
+username = gbrandl
+ignore.global = ~/.hgignore
+merge = diff3
+
+[ui ~/devel]
+username = Georg Brandl <georg@python.org>
+
+[color]
+status.unknown = white
+diff.heading = bold white blue_background
+
+[email]
+method = smtp
+from   = Georg Brandl <georg@python.org>
+
+[smtp]
+host     = mail.python.org
+port     = 587
+tls      = true
+username = georg@mail.python.org
+
+[bb]
+username = birkenfeld
+default_method = ssh
+
+[progress]
+width = 60
+delay = 1
+refresh = 0.5
+
+[tortoisehg]
+fontcomment = Consolas,10,-1,5,50,0,0,0,0,0
+fontdiff = Consolas,10,-1,5,50,0,0,0,0,0
+fontlog = Consolas,10,-1,5,50,0,0,0,0,0
+authorcolor = True
+longsummary = True
+
+[merge-tools]
+diff3.args = -mA -L local -L base -L other -- $local $base $other > $output
