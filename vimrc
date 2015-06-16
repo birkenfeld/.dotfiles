@@ -1,26 +1,6 @@
 set mouse=a
 
-" next search result
-imap <C-N> <C-O>n
-" previous search result
-imap <C-B> <C-O>N
-" kill this line
-imap <C-K> <C-O>dd
-" paste clipboard
-imap <C-V> <C-O>P
-" start searching
-imap <C-F> <C-O>/
-
-" save
-imap <C-S> <C-O>:w<CR>
-" save and exit
-imap <C-Q> <C-O>:wq<CR>
-" exit without saving
-imap <C-C><C-C> <C-O>:q!<CR>
-" next search result
-imap <F3>  <C-O>n
-
-" select case-insenitiv search (not default)
+" select case-insenitive search (not default)
 set ignorecase
 
 " show cursor line and column in the status line
