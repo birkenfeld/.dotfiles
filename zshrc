@@ -129,12 +129,13 @@ cG=$'%{\e[32m%}'
 cM=$'%{\e[1;35m%}'
 cC=$'%{\e[1;36m%}'
 cN=$'%{\e[00m%}'
+cBLD=$'%{\e[01;01m%}'
 N=$'\e[00m'
 
 EXITCODE="%(?..%?%1v )"
 
 if (( EUID == 0 )); then
-    PS1="${cR}%U${USER}%u@%m ${cB}%~ \${vcs_info_msg_0_}# ${cR}"
+    PS1="${cR}%U${USER}%u@%m ${cB}%~${cN}\${vcs_info_msg_0_} ${cB}# ${cR}"
 else
     PS1="${cG}%U${USER}%u@${cDB}%m ${cN}%B%~%b\${vcs_info_msg_0_}> ${cB}"
     if [ "x$showSHLVL" '!=' "x" ]; then
