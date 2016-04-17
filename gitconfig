@@ -12,13 +12,15 @@
 	ci = commit
 	st = status
 	br = branch
-	ds = diff --staged
+	ds = !git-diff-highlight --staged
 	rb = rebase -i origin/master
 	ca = commit --amend
 	pg = push gerrit
 	ann = blame
 	rev = checkout --
 	lg = log --graph
+	df = !git-diff-highlight
+	sh = !git-diff-highlight --show
 [push]
 	default = simple
 [pull]
@@ -36,3 +38,5 @@
 	pager = less -S
 [init]
 	templatedir = /home/gbr/.git_template
+[transfer]
+	fsckObjects = true

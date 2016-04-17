@@ -1,3 +1,5 @@
+syn on
+
 set mouse=a
 
 " select case-insenitive search (not default)
@@ -21,11 +23,9 @@ set esckeys
 set nocompatible
 
 augroup python
-
     au!
     au FileType python set ts=4 sw=4 expandtab autoindent smarttab
-    au FileType python source /usr/share/vim/vimfiles/ftplugin/python/python_fn.vim
-
+"    au FileType python source /usr/share/vim/vimfiles/ftplugin/python/python_fn.vim
 augroup END
 
 filetype plugin on

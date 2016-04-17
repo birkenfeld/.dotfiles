@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = "--show" ]; then
+    shift
+    git show --color=always "$@" | diff-highlight | less
+else
+    git diff --color=always "$@" | diff-highlight | less
+fi

@@ -93,6 +93,8 @@ alias rwx='chmod 700'
 alias r--='chmod 644'
 alias r-x='chmod 755'
 
+alias sigh='sudo $(fc -ln -1 -1)'
+
 
 function rgrep {
     find . -name .svn -prune -o -type f -print0 | \
@@ -211,8 +213,6 @@ export HELPDIR=/usr/local/lib/zsh/help  # directory for run-help function to fin
 export HELPPAGEROPTS='-E~'
 export SHELL='/bin/zsh'
 export PAGER='less'
-
-which dircolors > /dev/null && eval $(dircolors -b /etc/DIR_COLORS)
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
