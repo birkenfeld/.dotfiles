@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+import os, sys, math
+
+digits = [chr(dig) for dig in (range(48, 58) + range(65, 91))]
+
+def num_to_based(x1, b):
+    ret = ""
+    x = abs(x1)
+    while x > 0:
+        ret = digits[x % b] + ret
+        x //= b
+    return (x1 < 0 and "-" or "") + ret
+
+if __name__ == "__main__":
+	try:
+		number   = sys.argv[1].upper().replace("_", "").replace(" ", "")
+		base1    = int(sys.argv[2])
+		try:
+			base2 = int(sys.argv[3])
+		except:
+			base2 = base1
+			base1 = 10
+	except:
+		print >> sys.stderr, "Usage: bac number [frombase] tobase"
+		sys.exit(0)
+	if base1 > 36: raise ("Base '%d' not supported" % base1)
+	if base2 > 36: raise ("Base '%d' not supported" % base2)
+	print num_to_based(int(number, base1), base2)

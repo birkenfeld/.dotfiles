@@ -1,0 +1,7 @@
+#!/bin/sh
+for f in "$@"; do
+  pdf2ps $f
+  rm -f "${f%.pdf}.eps"
+  ps2eps "${f%.pdf}.ps"
+  rm -f "${f%.pdf}.ps"
+done

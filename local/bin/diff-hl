@@ -1,0 +1,2 @@
+#!/bin/sh
+colordiff < "$1" | diff-highlight | less
