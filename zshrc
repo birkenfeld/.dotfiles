@@ -29,7 +29,7 @@ zmodload -ap zsh/mapfile mapfile
 setopt append_history        # append to history file
 setopt inc_append_history    # incrementally
 setopt extended_history      # save beginning and duration of commands
-setopt hist_ignore_all_dups  # remove dups from history
+#setopt hist_ignore_all_dups # remove dups from history
 setopt hist_ignore_space     # do not enter in history if beginning with space
 setopt auto_cd               # automatically cd into directory given as command
 setopt extended_glob         # activate extended glob operators
@@ -511,6 +511,7 @@ bindkey ",." globalias
 typeset -A ZSH_HIGHLIGHT_STYLES
 ZSH_HIGHLIGHT_STYLES[command]='bold'
 ZSH_HIGHLIGHT_STYLES[alias]='bold'
+ZSH_HIGHLIGHT_STYLES[function]='bold'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue,bold'
 ZSH_HIGHLIGHT_STYLES[precommand]='bold,underline'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=blue'
