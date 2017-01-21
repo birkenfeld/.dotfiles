@@ -64,7 +64,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 export CLICOLOR=1
-if ls --color &>/dev/null; then LS_OPTIONS="--color=auto"; fi
+if ls --color &>/dev/null; then export LS_OPTIONS="--color=auto"; fi
 alias ls="/bin/ls ${LS_OPTIONS}"
 alias l="ls -l"
 alias la="ls -a"
