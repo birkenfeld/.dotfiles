@@ -520,10 +520,13 @@ ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=magenta,bold'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)        
 
-ZSH_HIGHLIGHT_FILE=/usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-if [ -f $ZSH_HIGHLIGHT_FILE ]; then
-    source  $ZSH_HIGHLIGHT_FILE
-fi
+ZSH_HIGHLIGHT_FILES=(
+    /usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+)
+for f in $ZSH_HIGHLIGHT_FILES; do
+    if [ -f $f ]; then source $f; break; fi
+done
 
 ZSH_SUGGESTIONS_FILE=$HOME/devel/ext/zsh-autosuggestions/zsh-autosuggestions.zsh
 if [ -f $ZSH_SUGGESTIONS_FILE ]; then
