@@ -27,7 +27,7 @@ zmodload -ap zsh/mapfile mapfile
 # -- shell options -------------------------------------------------------------
 
 setopt append_history        # append to history file
-#setopt share_history        # share history between sessions (weird)
+setopt inc_append_history    # incrementally
 setopt extended_history      # save beginning and duration of commands
 setopt hist_ignore_all_dups  # remove dups from history
 setopt hist_ignore_space     # do not enter in history if beginning with space
@@ -54,6 +54,7 @@ setopt promptsubst           # substitute in prompt string
 setopt transient_rprompt     # remove right prompt on time
 unsetopt bgnice
 
+ttyctl -f                    # lock tty settings against changes by programs
 
 # -- set up often used aliases and functions -----------------------------------
 
@@ -88,14 +89,6 @@ alias findn="noglob find -iname"
 alias ssize='du -c * | sort -n'
 alias gdbrun="gdb -ex run --args"
 
-alias rw-='chmod 600'
-alias rwx='chmod 700'
-alias r--='chmod 644'
-alias r-x='chmod 755'
-
-alias sigh='sudo $(fc -ln -1 -1)'
-
-
 function rgrep {
     find . -name .svn -prune -o -type f -print0 | \
         xargs -0 grep --color=auto --binary-files=without-match -nH "$@"
@@ -124,29 +117,17 @@ cd () {
 
 # -- set up the prompt ---------------------------------------------------------
 
-cR=$'%{\e[01;31m%}'
-cB=$'%{\e[01;34m%}'
-cDB=$'%{\e[34m%}'
-cG=$'%{\e[32m%}'
-cM=$'%{\e[1;35m%}'
-cC=$'%{\e[1;36m%}'
-cN=$'%{\e[00m%}'
-cBLD=$'%{\e[01;01m%}'
-N=$'\e[00m'
-
 EXITCODE="%(?..%?%1v )"
 
 if (( EUID == 0 )); then
-    PS1="${cR}%U${USER}%u@%m ${cB}%~${cN}\${vcs_info_msg_0_} ${cB}# ${cR}"
+    PS1="%B%F{red}%U${USER}%u@%m %F{blue}%~%F{none}%b\${vcs_info_msg_0_} %F{blue}#%F{none} "
 else
-    PS1="${cG}%U${USER}%u@${cDB}%m ${cN}%B%~%b\${vcs_info_msg_0_}> ${cB}"
+    PS1="%F{green}%U${USER}%u@%F{blue}%m %F{none}%B%~%b\${vcs_info_msg_0_}>%F{none} "
     if [ "x$showSHLVL" '!=' "x" ]; then
 	PS1="[%L] $PS1"
     fi
 fi
 RPROMPT="$EXITCODE"
-
-#PS1='${vcs_info_msg_0_}'"$PS1"
 
 autoload -Uz vcs_info
 
@@ -175,14 +156,12 @@ zstyle ':vcs_info:*' check-for-changes true
 #zstyle ':vcs_info:*' actionformats '%s%F{3}-[%F{5}%b%F{3}|%F{1}%a%F{3}]%f '
 #zstyle ':vcs_info:*' formats       '%s%F{3}-[%F{5}%b%F{3}]%f '
 
-POSTEDIT=$N
-
 precmd() {
     vcs_info
 }
 
 case $TERM in
-    (xterm*|rxvt)
+    xterm*|rxvt)
         precmd() {
             vcs_info
             print -Pn "\e]0;%m [%n] %~\a"
@@ -192,8 +171,6 @@ esac
 PS2='\`%_> '
 PS3='?# '
 PS4='+%N:%i:%_> '
-
-unset cR, cB, cN, cG, cM, cC, N
 
 
 # -- shell environment ---------------------------------------------------------
@@ -209,10 +186,9 @@ typeset -U path cdpath fpath manpath
 # Some environment variables
 export GREP_COLOR='04'
 export LESS='-crx3Mi'
-export HELPDIR=/usr/local/lib/zsh/help  # directory for run-help function to find docs
 export HELPPAGEROPTS='-E~'
-export SHELL='/bin/zsh'
-export PAGER='less'
+export SHELL=/bin/zsh
+export PAGER=less
 
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -242,18 +218,11 @@ bindkey -e
 # no slash as wordchar
 WORDCHARS=${WORDCHARS:s_/__}
 
-backward-kill-big-word() {
-    local WORDCHARS="$WORDCHARS \\"
-    zle .backward-kill-word
-}
-zle -N backward-kill-big-word
-bindkey "\e^H"  backward-kill-big-word
-
 insert-datestamp() {
     LBUFFER+=${(%):-'%D{%Y-%m-%d}'};
 }
 zle -N insert-datestamp
-bindkey '^Ed' insert-datestamp
+bindkey "^Xd" insert-datestamp
 
 sudo-command-line() {
     [[ -z $BUFFER ]] && zle up-history
@@ -262,6 +231,7 @@ sudo-command-line() {
 zle -N sudo-command-line
 bindkey "^Xo" sudo-command-line
 
+# to insert additional options (if not supported after args)
 function jump_after_first_word() {
     local words
     words=(${(z)BUFFER})
@@ -273,7 +243,7 @@ function jump_after_first_word() {
     fi
 }
 zle -N jump_after_first_word
-bindkey '^x1' jump_after_first_word
+bindkey '^X1' jump_after_first_word
 
 bindkey " "     magic-space    # also do history expansion on space
 bindkey "\e[4~" end-of-line
@@ -309,7 +279,7 @@ zle -N self-insert url-quote-magic
 
 # call run-help for the 1st word on the command line
 alias run-help >&/dev/null && unalias run-help
-for rh in run-help{,-git,-svn}; do
+for rh in run-help{,-git}; do
     autoload -U $rh
 done; unset rh
 
@@ -435,21 +405,10 @@ bk() {
     cp -b $1 $1_`date --iso-8601=m`
 }
 
-changed() {
-    emulate -L zsh
-    print -l *(c-${1:1})
-}
-
 new() {
     emulate -L zsh
-    print -l *(m-${1:1})
-}
-
-urlencode() {
-    emulate -L zsh
-    setopt extendedglob
-    input=( ${(s::)1} )
-    print ${(j::)input/(#b)([^A-Za-z0-9_.!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
+    # files modified in the last $1 days
+    ls -ld *(md-${1:=1})
 }
 
 vim() {
@@ -461,7 +420,7 @@ whatwhen()  {
     emulate -L zsh
     local usage help ident format_l format_s first_char remain first last
     usage='USAGE: whatwhen [options] <searchstring> <search range>'
-    help='Use' \`'whatwhen -h'\'' for further explanations.'
+    help='Use `whatwhen -h'"' for further explanations."
     ident=${(l,${#${:-Usage: }},, ,)}
     format_l="${ident}%s\t\t\t%s\n"
     format_s="${format_l//(\\t)##/\\t}"
@@ -502,35 +461,6 @@ whatwhen()  {
             fc -li -m "*${first_char}${remain}*" $first $last
         ;;
     esac
-}
-
-# create small urls via http://tinyurl.com using wget(1).
-zurl() {
-    emulate -L zsh
-    [[ -z $1 ]] && { print "USAGE: zurl <URL>" ; return 1 }
-
-    local PN url tiny grabber search result preview
-    PN=$0
-    url=$1
-
-    # Prepend 'http://' to given URL where necessary for later output.
-    [[ ${url} != http(s|)://* ]] && url='http://'${url}
-    tiny='http://tinyurl.com/create.php?url='
-    if check_com -c wget ; then
-        grabber='wget -O- -o/dev/null'
-    else
-        print "wget is not available, but mandatory for ${PN}. Aborting."
-    fi
-    # Looking for i.e.`copy('http://tinyurl.com/7efkze')' in TinyURL's HTML code.
-    search='copy\(?http://tinyurl.com/[[:alnum:]]##*'
-    result=${(M)${${${(f)"$(${=grabber} ${tiny}${url})"}[(fr)${search}*]}//[()\';]/}%%http:*}
-    # TinyURL provides the rather new feature preview for more confidence.
-    # <http://tinyurl.com/preview.php>
-    preview='http://preview.'${result#http://}
-
-    printf '%s\n\n' "${PN} - Shrinking long URLs via webservice TinyURL <http://tinyurl.com>."
-    printf '%s\t%s\n\n' 'Given URL:' ${url}
-    printf '%s\t%s\n\t\t%s\n' 'TinyURL:' ${result} ${preview}
 }
 
 
@@ -576,8 +506,34 @@ zle -N globalias
 bindkey ",." globalias
 
 
+# -- highlighting and suggestions ---------------------------------------------
+
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[command]='bold'
+ZSH_HIGHLIGHT_STYLES[alias]='bold'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue,bold'
+ZSH_HIGHLIGHT_STYLES[precommand]='bold,underline'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=magenta,bold'
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)        
+
+ZSH_HIGHLIGHT_FILE=/usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f $ZSH_HIGHLIGHT_FILE ]; then
+    source  $ZSH_HIGHLIGHT_FILE
+fi
+
+ZSH_SUGGESTIONS_FILE=$HOME/devel/ext/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f $ZSH_SUGGESTIONS_FILE ]; then
+    source  $ZSH_SUGGESTIONS_FILE
+fi
+
+
 # -- local overrides ----------------------------------------------------------
 
 if [ -f /etc/zsh/zshrc.local ]; then
     source /etc/zsh/zshrc.local
 fi
+
