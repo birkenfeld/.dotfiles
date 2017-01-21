@@ -21,7 +21,7 @@ if os.path.exists(historyPath):
     readline.read_history_file(historyPath)
 
 # register saving handler
-atexit.register(save_history)
+#atexit.register(save_history)
 
 # enable completion
 readline.parse_and_bind('tab: complete')

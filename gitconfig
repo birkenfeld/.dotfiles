@@ -40,3 +40,5 @@
 	templatedir = /home/gbr/.git_template
 [transfer]
 	fsckObjects = true
+[diff]
+	renameLimit = 5000
