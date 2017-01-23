@@ -384,6 +384,22 @@ ansi-colors() {
         done
         echo -e "$line1\n$line2"
     done
+
+    echo
+    for i in `seq 16 6 250`; do
+        for j in `seq $i $(( i+5 ))`; do
+            printf "\x1b[48;5;%sm%3d\e[0m " "$j" "$j"
+	done
+	printf "    "
+        for j in `seq $i $(( i+5 ))`; do
+            printf "\x1b[38;5;%sm%3d\e[0m " "$j" "$j"
+	done
+	printf "    "
+        for j in `seq $i $(( i+5 ))`; do
+            printf "\x1b[1;38;5;%sm%3d\e[0m " "$j" "$j"
+	done
+	printf "\n"
+    done
 }
 
 any() {
@@ -514,13 +530,14 @@ ZSH_HIGHLIGHT_STYLES[command]='bold'
 ZSH_HIGHLIGHT_STYLES[alias]='bold'
 ZSH_HIGHLIGHT_STYLES[function]='bold'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue,bold'
-ZSH_HIGHLIGHT_STYLES[precommand]='bold,underline,fg=126'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=126,bold,underline'
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=126,bold'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=126,bold,underline'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=22'
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=22'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=88'
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='underline'
-ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=magenta,bold'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=yellow'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
