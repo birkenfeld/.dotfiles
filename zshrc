@@ -533,12 +533,15 @@ ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue,bold'
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=126,bold,underline'
 ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=126,bold'
 ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=126,bold,underline'
+ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=31'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=22'
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=22'
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=88'
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=yellow'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=240'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=240'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
