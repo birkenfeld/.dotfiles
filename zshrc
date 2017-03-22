@@ -532,7 +532,7 @@ ZSH_HIGHLIGHT_STYLES[function]='bold'
 ZSH_HIGHLIGHT_STYLES[builtin]='fg=blue,bold'
 ZSH_HIGHLIGHT_STYLES[precommand]='fg=126,bold,underline'
 ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=126,bold'
-ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=126,bold,underline'
+ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=126,bold'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=31'
 ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=22'
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=22'
@@ -540,10 +540,12 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=88'
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=yellow'
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=240'
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=240'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=17'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=17'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
+
+ZSH_HIGHLIGHT_PATTERNS+=('rm ' 'fg=red,bold')
 
 ZSH_HIGHLIGHT_FILES=(
     /usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -552,8 +554,6 @@ ZSH_HIGHLIGHT_FILES=(
 for f in $ZSH_HIGHLIGHT_FILES; do
     if [ -f $f ]; then source $f; break; fi
 done
-
-ZSH_HIGHLIGHT_PATTERNS+=('rm ' 'fg=red,bold')
 
 ZSH_SUGGESTIONS_FILE=$HOME/devel/ext/zsh-autosuggestions/zsh-autosuggestions.zsh
 if [ -f $ZSH_SUGGESTIONS_FILE ]; then
