@@ -218,6 +218,17 @@ bindkey -e
 # no slash as wordchar
 WORDCHARS=${WORDCHARS:s_/__}
 
+# Alt-space like emacs hippie expand in the history list
+history-hippie-complete() {
+    local prefix=$PREFIX
+    local hist=`fc -nl -500`
+    fc -RI
+    compadd - ${=hist}
+}
+
+zle -C history-hippie-complete complete-word history-hippie-complete
+bindkey "\x1b " history-hippie-complete
+
 insert-datestamp() {
     LBUFFER+=${(%):-'%D{%Y-%m-%d}'};
 }
@@ -559,8 +570,6 @@ ZSH_SUGGESTIONS_FILE=$HOME/devel/ext/zsh-autosuggestions/zsh-autosuggestions.zsh
 if [ -f $ZSH_SUGGESTIONS_FILE ]; then
     source  $ZSH_SUGGESTIONS_FILE
 fi
-
-[ -r /usr/share/z/z.sh ] && source /usr/share/z/z.sh
 
 
 # -- directory up -------------------------------------------------------------
