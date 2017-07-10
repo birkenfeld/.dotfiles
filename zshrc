@@ -29,6 +29,7 @@ zmodload -ap zsh/mapfile mapfile
 setopt append_history        # append to history file
 setopt inc_append_history    # incrementally
 setopt extended_history      # save beginning and duration of commands
+setopt hist_ignore_dups      # dont record dups of previous command
 #setopt hist_ignore_all_dups # remove dups from history
 setopt hist_ignore_space     # do not enter in history if beginning with space
 setopt auto_cd               # automatically cd into directory given as command
