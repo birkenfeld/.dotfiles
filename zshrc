@@ -562,15 +562,19 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm ' 'fg=red,bold')
 ZSH_HIGHLIGHT_FILES=(
     /usr/share/zsh/site-contrib/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 )
 for f in $ZSH_HIGHLIGHT_FILES; do
     if [ -f $f ]; then source $f; break; fi
 done
 
-ZSH_SUGGESTIONS_FILE=$HOME/devel/ext/zsh-autosuggestions/zsh-autosuggestions.zsh
-if [ -f $ZSH_SUGGESTIONS_FILE ]; then
-    source  $ZSH_SUGGESTIONS_FILE
-fi
+ZSH_SUGGESTIONS_FILES=(
+    /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    $HOME/devel/ext/zsh-autosuggestions/zsh-autosuggestions.zsh
+)
+for f in $ZSH_SUGGESTIONS_FILES; do
+    if [ -f $f ]; then source $f; break; fi
+done
 
 
 # -- directory up -------------------------------------------------------------
