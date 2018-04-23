@@ -186,7 +186,7 @@ typeset -U path cdpath fpath manpath
 
 # Some environment variables
 export GREP_COLOR='04'
-export LESS='-crx3Mi'
+export LESS='-Rx4Mi'
 export HELPPAGEROPTS='-E~'
 export SHELL=/bin/zsh
 export PAGER=less

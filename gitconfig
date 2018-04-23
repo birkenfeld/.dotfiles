@@ -34,8 +34,9 @@
 	autostash = true
 [merge]
 	defaultToUpstream = true
+	conflictstyle = diff3
 [core]
-	pager = less -S
+	pager = less -SFRX
 [init]
 	templatedir = /home/gbr/.git_template
 [transfer]

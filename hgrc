@@ -24,7 +24,7 @@ hgcodesmell  = ~/devel/hgcodesmell/hgcodesmell.py
 #hgpunchcard  = ~/devel/hgpunchcard/hgpunchcard.py
 
 #activity     = ~/devel/ext/hgactivity/activity
-hgview       = ~/devel/ext/hgview/hgext/hgview.py
+#hgview       = ~/devel/ext/hgview/hgext/hgview.py
 reposettings = ~/devel/ext/reposettings/reposettings.py
 #shelve       = ~/devel/ext/hgshelve/hgshelve.py
 #attic        = ~/devel/ext/hgattic/attic.py
