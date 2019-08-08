@@ -21,6 +21,7 @@
 	lg = log --graph
 	df = !git-diff-highlight
 	sh = !git-diff-highlight --show
+	retag = !"f() { git tag -d $1; git push origin :refs/tags/$1; git tag -a -m \"\" \"$@\"; git push --tags; }; f"
 [push]
 	default = simple
 [pull]
@@ -36,10 +37,15 @@
 	defaultToUpstream = true
 	conflictstyle = diff3
 [core]
-	pager = less -SFRX
+	pager = less -SFXR
 [init]
 	templatedir = /home/gbr/.git_template
 [transfer]
 	fsckObjects = true
 [diff]
 	renameLimit = 5000
+[http]
+	sslverify = false
+[gitreview]
+	remote = origin
+	rebase = true

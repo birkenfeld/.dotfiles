@@ -186,7 +186,7 @@ typeset -U path cdpath fpath manpath
 
 # Some environment variables
 export GREP_COLOR='04'
-export LESS='-Rx4Mi'
+export LESS='-RSx4Mi'
 export HELPPAGEROPTS='-E~'
 export SHELL=/bin/zsh
 export PAGER=less
@@ -552,8 +552,8 @@ ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=88'
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=yellow'
-ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=17'
-ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=17'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=27'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=27'
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
