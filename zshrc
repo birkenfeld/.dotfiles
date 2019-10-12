@@ -141,7 +141,7 @@ autoload -Uz vcs_info
 # %S - path in the repository
 # %s - vcs name
 FMT_BRANCH=" %F{3}[%F{5}%b%c%u%F{3}]%f"
-FMT_ACTION=" %F{3}[%F{5}%b%F{3}//%F{blue}%a%F{3}]%f"
+FMT_ACTION=" %F{3}[%F{5}%b%F{3}//%F{blue}%a %m%F{3}]%f"
 FMT_UNSTAGED="%F{red} @%f"
 FMT_STAGED="%F{green} @%f"
 
@@ -151,6 +151,7 @@ zstyle ':vcs_info:*' unstagedstr   "${FMT_UNSTAGED}"
 zstyle ':vcs_info:*' stagedstr     "${FMT_STAGED}"
 zstyle ':vcs_info:*' actionformats "${FMT_ACTION}"
 zstyle ':vcs_info:*' formats       "${FMT_BRANCH}"
+zstyle ':vcs_info:git:*' patch-format '%10>...>%p%<< (%n applied)'
 zstyle ':vcs_info:*' nvcsformats   ""
 zstyle ':vcs_info:*' check-for-changes true
 
