@@ -154,6 +154,15 @@ zstyle ':vcs_info:*' formats       "${FMT_BRANCH}"
 zstyle ':vcs_info:*' nvcsformats   ""
 zstyle ':vcs_info:*' check-for-changes true
 
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+
++vi-git-untracked() {
+  if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == 'true' ]] && \
+      git status --porcelain | grep -m 1 '^\?' &>/dev/null; then
+    hook_com[unstaged]+=' %F{blue}?%f'
+  fi
+}
+
 #zstyle ':vcs_info:*' actionformats '%s%F{3}-[%F{5}%b%F{3}|%F{1}%a%F{3}]%f '
 #zstyle ':vcs_info:*' formats       '%s%F{3}-[%F{5}%b%F{3}]%f '
 
@@ -259,9 +268,11 @@ bindkey '^X1' jump_after_first_word
 
 bindkey " "     magic-space    # also do history expansion on space
 bindkey "\e[4~" end-of-line
+bindkey "\eOF"  end-of-line
 bindkey "\e[F"  end-of-line
 bindkey "\e[8~" end-of-line
 bindkey "\e[1~" beginning-of-line
+bindkey "\eOH"  beginning-of-line
 bindkey "\e[H"  beginning-of-line
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[3~" delete-char
@@ -546,9 +557,9 @@ ZSH_HIGHLIGHT_STYLES[precommand]='fg=126,bold,underline'
 ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=126,bold'
 ZSH_HIGHLIGHT_STYLES[commandseparator]='fg=126,bold'
 ZSH_HIGHLIGHT_STYLES[back-quoted-argument]='fg=31'
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=22'
-ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=22'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=88'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=red'
+ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]='fg=red'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=red'
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]='underline'
 ZSH_HIGHLIGHT_STYLES[assign]='fg=yellow'

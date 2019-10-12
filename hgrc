@@ -11,12 +11,15 @@ hgext.progress   =
 hgext.purge      =
 hgext.rebase     =
 hgext.record     =
+hgext.shelve     =
+hgext.strip      =
 hgext.transplant =
 #hgext.churn      =
 #hgext.eol        =
 #hgext.fetch      =
 #hgext.convert    =
 #hgext.zeroconf   = 
+hgext.hgk =
 
 #hgbb         = ~/devel/hgbb/hgbb.py
 hgchangelog  = ~/devel/hgchangelog/hgchangelog.py
@@ -24,9 +27,7 @@ hgcodesmell  = ~/devel/hgcodesmell/hgcodesmell.py
 #hgpunchcard  = ~/devel/hgpunchcard/hgpunchcard.py
 
 #activity     = ~/devel/ext/hgactivity/activity
-#hgview       = ~/devel/ext/hgview/hgext/hgview.py
 reposettings = ~/devel/ext/reposettings/reposettings.py
-#shelve       = ~/devel/ext/hgshelve/hgshelve.py
 #attic        = ~/devel/ext/hgattic/attic.py
 #hgsubversion = ~/devel/ext/hgsubversion/hgsubversion
 #tasks        = ~/devel/ext/hgtasks/hgext/tasks.py
