@@ -1,6 +1,9 @@
 [user]
 	email = georg@python.org
 	name = Georg Brandl
+[core]
+	pager = less -SFXR
+	attributesfile = /home/gbrandl/.gitattributes
 [color]
 	diff = auto
 	status = auto
@@ -21,7 +24,11 @@
 	lg = log --graph
 	df = !git-diff-highlight
 	sh = !git-diff-highlight --show
-	retag = !"f() { git tag -d $1; git push origin :refs/tags/$1; git tag -a -m \"\" \"$@\"; git push --tags; }; f"
+	newtag = !"f() { git tag -a -m \"\" \"$@\"; git push --tags; }; f"
+	rmtag = !"f() { git tag -d $1; git push origin :refs/tags/$1; }; f"
+	retag = !"f() { git rmtag $1; git newtag \"$@\"; }; f"
+	pfusch = push
+	pfush = push
 [push]
 	default = simple
 [pull]
@@ -39,6 +46,13 @@
 [core]
 	pager = less -SFXR
 	attributesfile = /home/gbrandl/.gitattributes
+[pager]
+        diff = delta --light -ns
+        log = delta --light -ns
+        reflog = delta --light -ns
+        show = delta --light -ns
+[interactive]
+        diffFilter = delta --light -ns --color-only --features=interactive
 [init]
 	templatedir = /home/gbr/.git_template
 	defaultBranch = master
@@ -48,9 +62,6 @@
 	renameLimit = 5000
 [http]
 	sslverify = false
-[gitreview]
-	remote = origin
-	rebase = true
 [advice]
 	detachedHead = false
 	skippedCherryPicks = false
@@ -58,3 +69,9 @@
 	textconv = jq --sort-keys .
 [commit]
 	verbose = true
+[diff "rom"]
+	textconv = hexdump -v -C
+[receive]
+	denyCurrentBranch = off
+[safe]
+	directory = /share/ictrlfs/public/spec

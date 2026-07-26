@@ -122,12 +122,17 @@ cd () {
 
 # -- set up the prompt ---------------------------------------------------------
 
+cUser="%F{green}"
+if [ ! -z "$SSH_CONNECTION" ]; then cUser="%F{blue}"; fi
+cHost="%F{blue}"
+if [ ! -z "$SSH_CONNECTION" ]; then cHost="%F{magenta}"; fi
+
 EXITCODE="%(?..%?%1v )"
 
 if (( EUID == 0 )); then
     PS1="%B%F{red}%U${USER}%u@%m %F{blue}%~%F{none}%b\${vcs_info_msg_0_} %F{blue}#%F{none} "
 else
-    PS1="%F{green}%U${USER}%u@%F{blue}%m %F{none}%B%~%b\${vcs_info_msg_0_}>%F{none} "
+    PS1="${cUser}%U${USER}%u@${cHost}%m %F{none}%B%~%b\${vcs_info_msg_0_}>%F{none} "
     if [ "x$showSHLVL" '!=' "x" ]; then
 	PS1="[%L] $PS1"
     fi
