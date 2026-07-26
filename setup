@@ -8,10 +8,10 @@ for (r, ds, fs) in os.walk('.'):
     for f in fs:
         fr = p.join(r, f)[2:]
         to = p.join(p.expanduser('~'), '.' + fr)
-        print '%s -> %s' % (fr, to),
+        print('%s -> %s' % (fr, to), end=' ')
         if p.exists(to):
-            print 'ALREADY EXISTS'
+            print('ALREADY EXISTS')
         else:
             os.symlink(p.abspath(fr), to)
-            print 'linked'
+            print('linked')
 

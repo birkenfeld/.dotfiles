@@ -3,6 +3,8 @@
 # always include the general profile
 source /etc/profile
 
+export VNC_VIA_CMD="/usr/bin/ssh -fN -L %L:%H:%R %G"
+
 
 # -- load interesting modules --------------------------------------------------
 
@@ -64,6 +66,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+export EDITOR=vim
+
 export CLICOLOR=1
 if ls --color &>/dev/null; then export LS_OPTIONS="--color=auto"; fi
 alias ls="/bin/ls ${LS_OPTIONS}"
@@ -82,7 +86,7 @@ alias mv="nocorrect /bin/mv"  # no spelling correction on mv
 alias cp="nocorrect cp"       # no spelling correction on cp
 alias mkdir="nocorrect mkdir" # no spelling correction on mkdir
 alias md="mkdir -p"
-alias grep=egrep
+alias grep=grep -E
 alias help=run-help
 alias da="du -sh"
 alias ren="noglob zmv -W"
@@ -195,7 +199,7 @@ setenv() {
 typeset -U path cdpath fpath manpath
 
 # Some environment variables
-export GREP_COLOR='04'
+export GREP_COLORS='mt=04'
 export LESS='-RSx4Mi'
 export HELPPAGEROPTS='-E~'
 export SHELL=/bin/zsh
@@ -451,9 +455,9 @@ new() {
     ls -ld *(md-${1:=1})
 }
 
-vim() {
-    VIM_PLEASE_SET_TITLE='yes' command vim ${VIM_OPTIONS} "$@"
-}
+#vim() {
+#    VIM_PLEASE_SET_TITLE='yes' command vim ${VIM_OPTIONS} "$@"
+#}
 
 # find history events by search pattern and list them by date
 whatwhen()  {
@@ -663,3 +667,6 @@ if [ -f /etc/zsh/zshrc.local ]; then
     source /etc/zsh/zshrc.local
 fi
 
+# opencode
+export PATH=/home/gbrandl/.opencode/bin:$PATH
+. "/home/gbrandl/.deno/env"

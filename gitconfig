@@ -38,8 +38,10 @@
 	conflictstyle = diff3
 [core]
 	pager = less -SFXR
+	attributesfile = /home/gbrandl/.gitattributes
 [init]
 	templatedir = /home/gbr/.git_template
+	defaultBranch = master
 [transfer]
 	fsckObjects = true
 [diff]
@@ -49,3 +51,10 @@
 [gitreview]
 	remote = origin
 	rebase = true
+[advice]
+	detachedHead = false
+	skippedCherryPicks = false
+[diff "json"]
+	textconv = jq --sort-keys .
+[commit]
+	verbose = true

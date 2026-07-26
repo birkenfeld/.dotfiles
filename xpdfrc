@@ -6,4 +6,3 @@ bind end any gotoLastPage
 bind g any reload
 
 initialZoom page
-urlCommand "firefox %s"
